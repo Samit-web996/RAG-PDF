@@ -26,7 +26,7 @@ async function getOllamaEmbedding(text) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "llama3",
+        model: "nomic-embed-text",
         prompt: text
       })
     });
@@ -40,6 +40,10 @@ async function getOllamaEmbedding(text) {
 
 // Cosine Similarity Math Engine
 function cosineSimilarity(vecA, vecB) {
+  if (!vecA || !vecB || vecA.length === 0 || vecB.length === 0) {
+        console.error("Bhai, yahan embedding missing h (undefined h)! Check your Ollama model.");
+        return 0; 
+    }
   let dotProduct = 0.0;
   let normA = 0.0;
   let normB = 0.0;
